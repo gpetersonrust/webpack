@@ -1,0 +1,68 @@
+@use "sass:map";
+
+// Define spacing map with key and properties for each margin/padding type
+$spacing: (
+  (properties: ("margin-top"), key: "mt"),
+  (properties: ("margin-right"), key: "mr"),
+  (properties: ("margin-bottom"), key: "mb"),
+  (properties: ("margin-left"), key: "ml"),
+
+  // Margin shorthands
+  (properties: ("margin-left", "margin-right"), key: "mx"),
+  (properties: ("margin-top", "margin-bottom"), key: "my"),
+  (properties: ("margin"), key: "m"),
+
+  // Similar structure for padding
+  (properties: ("padding-top"), key: "pt"),
+  (properties: ("padding-right"), key: "pr"),
+  (properties: ("padding-bottom"), key: "pb"),
+  (properties: ("padding-left"), key: "pl"),
+
+  (properties: ("padding-left", "padding-right"), key: "px"),
+  (properties: ("padding-top", "padding-bottom"), key: "py"),
+  (properties: ("padding"), key: "p"),
+
+  (properties: ('border-radius'), key: 'b-radius'),
+//   border radius left
+ 
+
+);
+
+// Mixin to generate spacing classes for a single definition
+@mixin generate-spacing($key, $properties) {
+  @for $i from 0 through 63 {
+    .#{$key}-#{$i}, 
+    .#{$key}-#{$i}:hover,
+    .#{$key}-#{$i}:focus,
+    .#{$key}-#{$i}:active
+    
+    {
+      @each $property in $properties {
+        #{$property}: #{$i * 0.25}rem; // Adjust multiplier for desired unit
+      }
+    }
+    // breakpoints 
+    @each $breakpoint, $size in $breakpoints{
+      @include media($breakpoint){
+        .#{$breakpoint}-#{$key}-#{$i},
+        .#{$breakpoint}-#{$key}-#{$i}:hover,
+        .#{$breakpoint}-#{$key}-#{$i}:focus,
+        .#{$breakpoint}-#{$key}-#{$i}:active{
+          @each $property in $properties {
+            #{$property}: #{$i * 0.25}rem; // Adjust multiplier for desired unit
+          }
+        }
+      }
+    }
+  }
+}
+
+// Loop through each spacing definition and call the mixin
+@each $space in $spacing {
+  $key: map-get($space, 'key');
+  $properties: map-get($space, 'properties');
+
+  @include generate-spacing($key, $properties);
+}
+
+ 

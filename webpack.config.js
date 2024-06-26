@@ -3,7 +3,22 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { MODE } = require('./library/constants/global');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+const glob = require("glob");
+const paths = {
+ wordpres : path.resolve(__dirname.replace('webpack', ''))
+}
+
+let wordpress_files = glob.sync(`${paths.wordpres}/**/*`, { nodir: true }).filter((file) => { 
+  let wepback_regex = /webpack/;
+  let dist_regex = /dist/;
+  if (wepback_regex.test(file) || dist_regex.test(file)) {
+    return false;
+  }
+  return file;
+});
  
+
 
 module.exports = {
   mode: MODE,
@@ -52,6 +67,9 @@ module.exports = {
           ? '[name]-wp[fullhash].css'
           : '[name]/[name]-wp[fullhash].css';
       },
+    }),
+    new PurgeCSSPlugin({
+      paths: wordpress_files
     }),
   ],
   devtool: 'source-map',

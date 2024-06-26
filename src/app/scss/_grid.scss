@@ -1,0 +1,133 @@
+@use 'sass:map';
+$grid-columns : 12;
+$grid-gutter: 40px;
+
+
+.container{
+    width:90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+$flex_type: (
+   (
+    'type': 'flex',
+    'property': 'display',
+    'value': 'flex'
+   ), 
+    (
+     'type': 'flex-col',
+     'property': 'flex-direction',
+     'value': 'column'
+    ),
+    (
+     'type': 'flex-row',
+     'property': 'flex-direction',
+     'value': 'row'
+    ),
+
+    // alignment
+    (
+        'type': 'justify-start',
+        'property': 'justify-content',
+        'value': 'flex-start'
+    ), 
+    (
+         'type': 'justify-end',
+            'property': 'justify-content',
+            'value': 'flex-end'
+    ), 
+    (
+        "type": "justify-center",
+        "property": "justify-content",
+        "value": "center"
+    ), 
+    (
+        "type": "justify-between",
+        "property": "justify-content",
+        "value": "space-between"
+
+    ), 
+     (
+        "type": "justify-around",
+        "property": "justify-content",
+        "value": "space-around"
+     ), 
+     (
+        "property" : "align-items",
+        "type": "item-start",
+        "value": "flex-start"
+     ), 
+     (
+        "property" : "align-items",
+        "type": "item-end",
+        "value": "flex-end"
+     ),
+     (
+        "property" : "align-items",
+        "type": "item-center",
+        "value": "center"
+    
+     )
+
+    
+    
+);
+
+ 
+
+// use breakpoints to create grid
+@for $i from 1 through $grid-columns{
+    .col-#{$i}{
+        flex: 0 0 calc(100% / #{$grid-columns} * #{$i});
+        max-width: calc(100% / #{$grid-columns} * #{$i});
+    }
+}
+
+ @each $flex in $flex_type{
+    $css_name :  map-get($flex, 'type');
+    $css_property : map-get($flex, 'property');
+    $css_value : map-get($flex, 'value');
+    .#{$css_name}{
+        #{$css_property}: #{$css_value};
+    }
+}
+
+
+ 
+    @each $item in $flex_type {
+        $css_name : map-get($item, 'type');
+        $css_property : map-get($item, 'property');
+        $css_value : map-get($item, 'value');
+        
+        .#{$css_name}{
+            #{$css_property}: #{$css_value};
+        }
+    }
+ 
+
+ 
+
+@each $breakpoint, $size in $breakpoints{
+    @include media($breakpoint){
+        @for $i from 1 through $grid-columns{
+            .col-#{$breakpoint}-#{$i}{
+                flex: 0 0 calc(100% / #{$grid-columns} * #{$i});
+                max-width: calc(100% / #{$grid-columns} * #{$i});
+            }
+        }
+
+         @each $item in $flex_type {
+            $css_name : map-get($item, 'type');
+            $css_property : map-get($item, 'property');
+            $css_value : map-get($item, 'value');
+            
+            .#{$breakpoint}-#{$css_name}{
+                #{$css_property}: #{$css_value};
+    }
+}
+    }
+
+
+}

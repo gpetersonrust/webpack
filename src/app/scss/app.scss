@@ -1,13 +1,45 @@
+// import math package
+@use 'sass:math';
 //  add tailwind css
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-* , body{
-  // reset margin and padding
-  margin: 0;
-  padding: 0;
  
+@import './variables.scss';
+@import './breakpoints.scss';
 
+// Base & layout
+@import './base.scss';
+@import './grid.scss';
+@import './spacing.scss';
+// Colors
+@import './colors.scss';
+
+// Typography
+
+// Components 
+
+// Utilities
+
+// Pages
+@import './header.scss';
+@import './footer.scss';
+
+.life{
+  // self
+  
+  font-size: 1rem;
+  @include media('sm'){
+    font-size: 1.5rem;
+  }
+  @include media('md'){
+    font-size: 2rem;
+  }
+  @include media('lg'){
+    font-size: 2.5rem;
+  }
+  @include media('xl'){
+    font-size: 3rem;
+  }
+ 
+  // children
 }
-
+ 
+ 
