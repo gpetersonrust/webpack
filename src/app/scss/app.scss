@@ -1,9 +1,12 @@
-// import math package
-@use 'sass:math';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+ 
 //  add tailwind css
  
 @import './variables.scss';
 @import './breakpoints.scss';
+@import './functions.scss';
+@import './mixins.scss';
 
 // Base & layout
 @import './base.scss';
@@ -15,6 +18,7 @@
 // Typography
 
 // Components 
+ @import './components/components.scss';
 
 // Utilities
 
@@ -22,24 +26,18 @@
 @import './header.scss';
 @import './footer.scss';
 
-.life{
-  // self
-  
-  font-size: 1rem;
-  @include media('sm'){
-    font-size: 1.5rem;
-  }
-  @include media('md'){
+ 
+ 
+ .life{
+    color: orange;
     font-size: 2rem;
-  }
-  @include media('lg'){
-    font-size: 2.5rem;
-  }
-  @include media('xl'){
-    font-size: 3rem;
-  }
- 
-  // children
+ }
+
+.design-system-header{
+  @apply  px-4 md-px-8 lg-px-12 py-6 color-primary;
 }
- 
- 
+
+
+.svg-blue {
+  fill: blue;
+}

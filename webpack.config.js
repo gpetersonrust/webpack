@@ -4,9 +4,17 @@ const { MODE } = require('./library/constants/global');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+const WatchExternalFilesPlugin = require('webpack-watch-external-files-plugin');
+ 
+ 
+
+
+
 const glob = require("glob");
+const CleanDistFolderPlugin = require('./plugins/webpack/CleanDistFolderPlugin');
 const paths = {
- wordpres : path.resolve(__dirname.replace('webpack', ''))
+  wordpres: path.resolve(__dirname.replace('webpack', '')),
+  distPath: path.resolve(__dirname.replace('webpack', ''), 'dist'),
 }
 
 let wordpress_files = glob.sync(`${paths.wordpres}/**/*`, { nodir: true }).filter((file) => { 
@@ -18,16 +26,19 @@ let wordpress_files = glob.sync(`${paths.wordpres}/**/*`, { nodir: true }).filte
   return file;
 });
  
+ 
+
+ 
 
 
 module.exports = {
-  mode: MODE,
+  mode: 'development',
   entry: {
     app: path.resolve(__dirname, 'src', 'app', 'js', 'app.js'),
   },
   output: {
     publicPath: '/',
-    path: path.resolve(__dirname.replace('webpack', ''), 'dist'),
+   path: paths.distPath,
     filename: ({ chunk: name }) => {
       return name === 'main'
         ? '[name]-wp[fullhash].js'
@@ -61,6 +72,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanDistFolderPlugin({
+      distPath: paths.distPath,
+    }),
     new MiniCssExtractPlugin({
       filename: ({ chunk: { name } }) => {
         return name === 'main'
@@ -71,6 +85,10 @@ module.exports = {
     new PurgeCSSPlugin({
       paths: wordpress_files
     }),
+    new WatchExternalFilesPlugin({
+      files: wordpress_files,
+    }),
   ],
   devtool: 'source-map',
+  watch: true,
 };

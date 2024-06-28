@@ -10,10 +10,10 @@ const paths = fg.sync([
   `${file_path}/**/*.php`,
   `${file_path}/**/*.js`,
 ], {
-  ignore: ['node_modules', 'dist', '.git'],
+  ignore: ['node_modules', '.git'],
 });
 
-const proxy = "http://the-only-dexaray.local/";
+const proxy = "design-system.local/";
 
 function watch() {
   browserSync.init({

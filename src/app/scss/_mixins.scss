@@ -1,0 +1,21 @@
+@mixin fullscreen_absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+    height: 100%;
+
+}
+
+
+@mixin zindex($zindex) {
+  z-index: $zindex;
+}
+
+@mixin header_typography($font-size, $font-weight, $line-height, $letter-spacing) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  
+}

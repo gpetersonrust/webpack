@@ -32,9 +32,9 @@ $spacing: (
 @mixin generate-spacing($key, $properties) {
   @for $i from 0 through 63 {
     .#{$key}-#{$i}, 
-    .#{$key}-#{$i}:hover,
-    .#{$key}-#{$i}:focus,
-    .#{$key}-#{$i}:active
+    .hover-#{$key}-#{$i}:hover,
+    .focus-#{$key}-#{$i}:focus,
+    .active-#{$key}-#{$i}:active
     
     {
       @each $property in $properties {
@@ -45,9 +45,9 @@ $spacing: (
     @each $breakpoint, $size in $breakpoints{
       @include media($breakpoint){
         .#{$breakpoint}-#{$key}-#{$i},
-        .#{$breakpoint}-#{$key}-#{$i}:hover,
-        .#{$breakpoint}-#{$key}-#{$i}:focus,
-        .#{$breakpoint}-#{$key}-#{$i}:active{
+        .hover-#{$breakpoint}-#{$key}-#{$i}:hover,
+        .focus-#{$breakpoint}-#{$key}-#{$i}:focus,
+        .active-#{$breakpoint}-#{$key}-#{$i}:active{
           @each $property in $properties {
             #{$property}: #{$i * 0.25}rem; // Adjust multiplier for desired unit
           }

@@ -1,0 +1,43 @@
+#hero-slider-style-1.hero-slider{
+    position: relative;
+    width: 100%; 
+    aspect-ratio: 2/1;
+    max-height: 750px;
+
+    .hero-slide{
+        opacity: 0;
+        z-index: -5;
+        @include fullscreen_absolute;
+
+        &.active{
+            opacity: 1;
+            z-index: 0;
+        }
+
+
+        .hero-slide-thumbnail{
+            @include fullscreen_absolute;
+            object-fit: cover;
+        }
+
+        .hero-content{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            @include zindex(10);
+            @apply container flex  flex-col justify-center;
+
+            h2{
+                font-family: $header-font-family; 
+                color: #fff;
+            }
+        }
+
+        .overlay{
+            @include fullscreen_absolute;
+            @include zindex(5);
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+    }
+}
